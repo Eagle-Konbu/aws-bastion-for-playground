@@ -23,3 +23,20 @@ resource "aws_vpc_security_group_egress_rule" "to_vpc_targets" {
   ip_protocol       = "-1"
   cidr_ipv4         = var.vpc_cidr
 }
+
+# --- Target security group (attach to resources accessed via bastion) ---
+
+resource "aws_security_group" "bastion_target" {
+  name        = "${var.project_name}-bastion-target-sg"
+  description = "Allow all inbound traffic from bastion"
+  vpc_id      = aws_vpc.main.id
+
+  tags = { Name = "${var.project_name}-bastion-target-sg" }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "from_bastion" {
+  security_group_id            = aws_security_group.bastion_target.id
+  description                  = "Allow all traffic from bastion"
+  ip_protocol                  = "-1"
+  referenced_security_group_id = aws_security_group.bastion.id
+}

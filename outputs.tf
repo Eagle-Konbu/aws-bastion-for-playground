@@ -14,6 +14,11 @@ output "public_subnet_ids" {
 }
 
 output "bastion_security_group_id" {
-  description = "Security group ID of bastion (targets must allow this SG)"
+  description = "Security group ID of bastion"
   value       = aws_security_group.bastion.id
+}
+
+output "bastion_target_security_group_id" {
+  description = "Security group ID to attach to resources accessed via bastion"
+  value       = aws_security_group.bastion_target.id
 }
