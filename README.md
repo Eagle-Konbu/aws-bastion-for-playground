@@ -74,5 +74,5 @@ aws ssm start-session \
 ### Instance ID の確認
 
 ```bash
-terraform output bastion_instance_id
+task get-instance-id AWS_PROFILE=<PROFILE_NAME>
 ```

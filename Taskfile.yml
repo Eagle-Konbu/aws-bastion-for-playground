@@ -36,3 +36,8 @@ tasks:
     desc: Run terraform destroy
     cmds:
       - eval "$(aws configure export-credentials --profile {{.AWS_PROFILE}} --format env)" && terraform destroy
+
+  get-instance-id:
+    desc: Show bastion instance ID
+    cmds:
+      - eval "$(aws configure export-credentials --profile {{.AWS_PROFILE}} --format env)" && terraform output bastion_instance_id
