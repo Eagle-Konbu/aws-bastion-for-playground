@@ -2,12 +2,25 @@ version: "3"
 
 vars:
   AWS_PROFILE: "{{.AWS_PROFILE}}"
+  TF_STATE_BUCKET: bastion-playground-tfstate
+  TF_STATE_REGION: ap-northeast-1
 
 tasks:
   init:
-    desc: Run terraform init
+    desc: Create S3 backend bucket (if needed) and run terraform init
     cmds:
-      - terraform init
+      - |
+        eval "$(aws configure export-credentials --profile {{.AWS_PROFILE}} --format env)"
+        if ! aws s3api head-bucket --bucket {{.TF_STATE_BUCKET}} 2>/dev/null; then
+          aws s3api create-bucket \
+            --bucket {{.TF_STATE_BUCKET}} \
+            --region {{.TF_STATE_REGION}} \
+            --create-bucket-configuration LocationConstraint={{.TF_STATE_REGION}}
+          aws s3api put-bucket-versioning \
+            --bucket {{.TF_STATE_BUCKET}} \
+            --versioning-configuration Status=Enabled
+        fi
+        terraform init
 
   plan:
     desc: Run terraform plan

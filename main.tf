@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5"
+  required_version = ">= 1.10"
 
   required_providers {
     aws = {
@@ -8,7 +8,13 @@ terraform {
     }
   }
 
-  backend "local" {}
+  backend "s3" {
+    bucket       = "bastion-playground-tfstate"
+    key          = "terraform.tfstate"
+    region       = "ap-northeast-1"
+    encrypt      = true
+    use_lockfile = true
+  }
 }
 
 provider "aws" {

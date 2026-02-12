@@ -8,7 +8,7 @@ SSM Session Manager を使って、AWS 上のプライベートリソース（RD
 
 ## 前提条件
 
-- [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.5
+- [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.10
 - [Task](https://taskfile.dev/installation/) (go-task)
 - AWS CLI v2
 - [Session Manager Plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
@@ -28,8 +28,8 @@ aws login --profile <PROFILE_NAME>
 ## デプロイ
 
 ```bash
-# 初回のみ
-task init
+# 初回のみ（S3 バケットが未作成の場合は自動作成される）
+task init AWS_PROFILE=<PROFILE_NAME>
 
 # 変更内容の確認
 task plan AWS_PROFILE=<PROFILE_NAME>
