@@ -4,7 +4,7 @@ SSM Session Manager を使って、AWS 上のプライベートリソース（RD
 
 - SSH 不要（キーペアなし、インバウンドポートゼロ）
 - SSM Agent 経由で接続（Amazon Linux 2023 にプリインストール済み）
-- t3.nano で月額約 $8（停止中はほぼ無料）
+- t4g.nano（Graviton）で月額約 $4（停止中はほぼ無料）
 
 ## 前提条件
 
