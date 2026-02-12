@@ -1,6 +1,6 @@
 resource "aws_instance" "bastion" {
   ami                    = data.aws_ssm_parameter.al2023_ami.value
-  instance_type          = var.instance_type
+  instance_type          = "t4g.nano"
   subnet_id              = aws_subnet.public.id
   iam_instance_profile   = aws_iam_instance_profile.bastion.name
   vpc_security_group_ids = [aws_security_group.bastion.id]

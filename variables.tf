@@ -15,9 +15,3 @@ variable "public_subnet_cidr" {
   type        = string
   default     = "10.0.1.0/24"
 }
-
-variable "instance_type" {
-  description = "EC2 instance type for bastion"
-  type        = string
-  default     = "t4g.nano"
-}
